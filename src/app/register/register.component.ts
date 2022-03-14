@@ -9,14 +9,14 @@ import { DataserviceService } from '../dataservice.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  loginForm: FormGroup; //reactiveform için kullanıyoruz
+  registerForm: FormGroup; //reactiveform için kullanıyoruz
   errorMessage: string;
 
   constructor(private router: Router, private dataService: DataserviceService ) { }
 
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
+    this.registerForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [
         Validators.required,
@@ -26,15 +26,15 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.loginForm.valid)
+    if(this.registerForm.valid)
     {
       const userInfo = {
-        email: this.loginForm.get('email').value,
-        password: this.loginForm.get('password').value
+        email: this.registerForm.get('email').value,
+        password: this.registerForm.get('password').value
       };
 
-      this.dataService.postData(userInfo).subscribe((olcay) => {
-        console.log(olcay);
+      this.dataService.postData(userInfo).subscribe((element) => {
+        console.log(element);
         this.router.navigate(['/login'])
       });
     }
